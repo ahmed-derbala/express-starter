@@ -1,5 +1,5 @@
 # express-starter
-express app to manage local gym
+a clean project to start an express app faster
 
 # run dev envirement
 ```
