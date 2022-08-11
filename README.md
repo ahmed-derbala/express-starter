@@ -1,6 +1,16 @@
 # express-starter
 a clean project to start an express app faster
 
+# first run
+```
+npm i
+```
+update to latest all packages with npm-check-updates and start with nodemon
+
+```
+npm run ncu
+```
+
 # run dev envirement
 ```
 npm run dev
