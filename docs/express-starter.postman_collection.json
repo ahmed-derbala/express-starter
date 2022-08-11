@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "9b6190f4-6685-43c3-bb66-4baa1bcd565a",
+		"name": "express-starter",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2947140"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "127.0.0.1:5000/api/auth/signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": {\n        \"email\": \"ahmed.derbala@esprit.tn\",\n        \"password\": \"a\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/api/auth/signin",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "127.0.0.1:3000/api/auth/signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"ahmed@email.com\",\n    \"password\":\"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/auth/register",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:3000/auth/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": {\n        \"password\": \"a\",\n        \"email\": \"ahmed.derbala@esprit.tnl\",\n        \"profile\": {\n            \"firstName\": \"a4\",\n            \"lastName\": \"a44\",\n            \"birthDate\": \"03/02/2022\"\n        },\n        \"phones\": [\n            {\n                \"countryCode\": \"216\",\n                \"shortNumber\": \"99112619\"\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/api/auth/signup",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:3000/users/ahmed",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\":\"aa\",\n    \"age\":2,\n    \"birthdate\":\"03/02/2022\",\n    \"username\":\"ahmed\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/users/ahmed",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"ahmed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:3000/profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyNjliNmU1MzYwYzE0ZmUyYWM1OGMxYSIsImZpcnN0bmFtZSI6ImFhIiwidXNlcm5hbWUiOiJhaG1lZCIsImJpcnRoZGF0ZSI6IjIwMjItMDMtMDFUMjM6MDA6MDAuMDAwWiIsIl9fdiI6MH0sImlhdCI6MTY1MTA5Nzg4MywiZXhwIjoxNjUxMTAxNDgzfQ.xJEaquGYFb-RnOL9KNzcx-HyGY0FTRdcmDuqecTsNH8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:3000/profile",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/email-setting/menu",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1ZTY3YWUyYzhlY2JiNTE1ODI4ZTdmMDkiLCJlbWFpbCI6Im9uZnJvaXBsYW50ZUB5b3BtYWlsLmNvbSIsInVzZXJBZ2VudCI6Ik1vemlsbGEvNS4wIChYMTE7IExpbnV4IHg4Nl82NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzEwMi4wLjUwMDUuNjEgU2FmYXJpLzUzNy4zNiIsImV4cCI6MTY2MTQxNzQxOSwidXNlcklwIjoiOjoxIiwiaWF0IjoxNjUzNjQxNDE5fQ.6B_JBIpb8vikpAC2oAHOZ_gcfIxvuN-ogRlGtwWbOms",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/email-setting/menu",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"email-setting",
+						"menu"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

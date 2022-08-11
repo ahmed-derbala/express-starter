@@ -1,0 +1,10 @@
+{
+    "verbose": false,
+    "ignore": [
+        "public/*",
+        "uploads/*",
+        "node_modules/*",
+        ".github/*"
+    ],
+    "delay": 1000
+}
