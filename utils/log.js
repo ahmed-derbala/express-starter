@@ -16,7 +16,8 @@ module.exports.log = (params) => {
   if (!params.message) params.message = 'msg'
 
   //console.log(logConf.createLoggerOptions,'logConf.createLoggerOptions');
-  return winston.createLogger(logConf.createLoggerOptions)[params.level](params)
+   const logger=winston.createLogger(logConf.createLoggerOptions)[params.level](params)
+   logger.close()
 }
 
 

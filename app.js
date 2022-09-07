@@ -8,10 +8,13 @@ const loaders = require('./helpers/loaders')
 const { mainMongo } = require(`./configs/mongo.config`)
 const morganLogger = require(`./utils/morgan`)
 const { randomUUID } = require('crypto');
-const {transportsOptions} =require('./configs/log.config')
+const { transportsOptions } = require('./configs/log.config')
+const rateLimit = require('express-rate-limit')
+const appConf = require(`./configs/app.config`)
+
 
 let app = express();
-
+app.use('/api', rateLimit(appConf.apiLimiter))
 //process transaction id
 const tidHandler = (request, response, next) => {
   if (!request.headers.tid) {
