@@ -10,7 +10,8 @@ module.exports = {
         protocol: 'http://',
         url: `http://127.0.0.1:5000`
     },
-    cluster: os.cpus().length,//a number, 0 to disable
+    cluster: 0,//os.cpus().length,
+    //a number, 0 to disable
     NODE_ENV: process.env.NODE_ENV || 'local',
     responseTimeAlert: 20000,//time in ms before considering a request timeout
     morgan: {

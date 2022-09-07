@@ -1,6 +1,7 @@
 #!/usr/bin/env node
+require('use-strict')
 console.clear()
-process.on('warning', e => console.warn(e.stack));//print out memory leak errors
+process.on('warning', e => log({ message: e.stack, level: 'warn' }));//print out memory leak errors
 
 const ip = require("ip");
 const appConf = require(`./configs/app.config`)

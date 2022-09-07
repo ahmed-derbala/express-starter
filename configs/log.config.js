@@ -37,11 +37,18 @@ const transportsOptions={
     },
 
     mongo: {
+      level: 'warn',
       db: mainMongo.uri,
       options: {
         useUnifiedTopology: true
       },
       decolorize: true,
+      expireAfterSeconds:1,
+      collection:'logs',
+      format:format.metadata()
+      /*capped:true,
+      cappedMax:1,
+      cappedSize:1,*/
     }
   }
 
@@ -59,5 +66,5 @@ const transportsOptions={
   }*/
 
 module.exports = {
-      createLoggerOptions
+      createLoggerOptions,transportsOptions
 }

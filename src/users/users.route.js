@@ -3,7 +3,7 @@ const router = express.Router();
 const usersCtrl = require(`./users.controller`)
 const { check, query, param } = require('express-validator');
 const validatorCheck = require(`../../utils/error`).validatorCheck;
-const { authenticate } = require(`../../middlewares/auth.middleware`)
+const { authenticate } = require(`../../middlewares/auth`)
 
 
 

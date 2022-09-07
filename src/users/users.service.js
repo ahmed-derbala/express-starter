@@ -1,6 +1,6 @@
 const Users = require(`./users.schema`)
 const { errorHandler } = require('../../utils/error');
-const { paginate } = require('../../helpers/pagination.helper')
+const { paginate } = require('../../helpers/pagination')
 
 
 

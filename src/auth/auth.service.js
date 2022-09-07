@@ -6,18 +6,17 @@ const { errorHandler } = require('../../utils/error');
 const jwt = require('jsonwebtoken');
 const authConf = require(`../../configs/auth.config`)
 
-module.exports.signup = async (params) => {
+module.exports.signup = async ({user}) => {
     //console.log(params,"servc params")
     const salt = bcrypt.genSaltSync(authConf.saltRounds)
-    params.user.password = bcrypt.hashSync(params.user.password, salt)
-    if (!params.user.profile.displayname) params.user.profile.displayname = `${params.user.profile.firstname} ${params.user.profile.lastname}`
+    user.password = bcrypt.hashSync(user.password, salt)
+    if (!user.profile.displayname) user.profile.displayname = `${user.profile.firstname} ${user.profile.lastname}`
 
-    for (phone of params.user.phones) {
-        phone.countryCode = phone.countryCode.trim()
-        phone.shortNUmber = phone.shortNumber.trim()
-        phone.fullNumber = `${phone.countryCode}${phone.shortNumber}`
-    }
-    return Users.create(params.user)
+        user.phone.countryCode = user.phone.countryCode.trim()
+        user.phone.shortNUmber = user.phone.shortNumber.trim()
+        user.phone.fullNumber = `${user.phone.countryCode}${user.phone.shortNumber}`
+    
+    return Users.create(user)
         .then(createdUser => {
             createdUser = createdUser.toJSON()
             delete createdUser.password
@@ -34,14 +33,14 @@ module.exports.signup = async (params) => {
         .catch(err => errorHandler({ err }))
 }
 
-module.exports.signin = async (params) => {
-    return Users.findOne({ email: params.user.email }).lean().select('+password')
+module.exports.signin = async ({user}) => {
+    return Users.findOne({ email: user.email }).lean().select('+password')
         .then(user => {
             if (user == null) {
                 return { message: 'user not found', data: null, status: 404 }
             }
             //user found, check password
-            const passwordCompare = bcrypt.compareSync(params.user.password, user.password)
+            const passwordCompare = bcrypt.compareSync(user.password, user.password)
 
             delete user.password//we dont need password anymore
             if (passwordCompare == false) {

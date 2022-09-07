@@ -53,7 +53,7 @@ morgan.token('tid', (req) => {
 });
 
 
-stream = {
+const stream = {
     write: function (req) {
         try {
             req = JSON.parse(req)

@@ -8,7 +8,7 @@ const loaders = require('./helpers/loaders')
 const { mainMongo } = require(`./configs/mongo.config`)
 const morganLogger = require(`./utils/morgan`)
 const { randomUUID } = require('crypto');
-
+const {transportsOptions} =require('./configs/log.config')
 
 let app = express();
 
@@ -24,13 +24,7 @@ app.use(tidHandler)
 
 app.use(expressWinston.logger({
   transports: [
-    new winston.transports.MongoDB({
-      db: mainMongo.uri,
-      options: {
-        useUnifiedTopology: true
-      },
-      decolorize: true,
-    })
+    new winston.transports.MongoDB(transportsOptions.mongo)
   ],
   expressFormat: true
 }));
