@@ -33,24 +33,24 @@ module.exports.signup = async ({user}) => {
         .catch(err => errorHandler({ err }))
 }
 
-module.exports.signin = async ({user}) => {
+module.exports.signin = async ({user,req}) => {
     return Users.findOne({ email: user.email }).lean().select('+password')
-        .then(user => {
-            if (user == null) {
+        .then(fetchedUser => {
+            if (fetchedUser == null) {
                 return { message: 'user not found', data: null, status: 404 }
             }
             //user found, check password
-            const passwordCompare = bcrypt.compareSync(user.password, user.password)
+            const passwordCompare = bcrypt.compareSync(user.password, fetchedUser.password)
 
-            delete user.password//we dont need password anymore
+            delete fetchedUser.password//we dont need password anymore
             if (passwordCompare == false) {
                 return { message: 'password incorrect', data: null, status: 409 }
             }
-            const token = jwt.sign({ user, ip: params.req.ip, userAgent: params.req.headers['user-agent'] }, authConf.jwt.privateKey, { expiresIn: '30d' })
+            const token = jwt.sign({ fetchedUser, ip: req.ip, userAgent: req.headers['user-agent'] }, authConf.jwt.privateKey, { expiresIn: '30d' })
 
-            return Sessions.create({ token, user, headers: params.req.headers,ip:params.req.ip })
+            return Sessions.create({ token, user:fetchedUser, headers: req.headers,ip:req.ip })
                 .then(session => {
-                    return { status: 200, message: 'success', data: { user, token }, }
+                    return { status: 200, message: 'success', data: { user:fetchedUser, token }, }
                 })
                 .catch(err => errorHandler({ err }))
         })
