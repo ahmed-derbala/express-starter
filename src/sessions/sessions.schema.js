@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const schema = new mongoose.Schema({
@@ -21,7 +20,6 @@ const schema = new mongoose.Schema({
 },
     { timestamps: true });
 
-schema.plugin(mongoosePaginate);
 schema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('sessions', schema);

@@ -1,11 +1,16 @@
+const packagejson = require(`../package.json`);
+const os = require("os")
+
 module.exports = {
+    name:packagejson.name,
+    version:packagejson.version,
     backend: {
         port: 5000,
         host: '127.0.0.1',
         protocol: 'http://',
         url: `http://127.0.0.1:5000`
     },
-    cluster: 0,//a number, 0 to disable
+    cluster: os.cpus().length,//a number, 0 to disable
     NODE_ENV: process.env.NODE_ENV || 'local',
     responseTimeAlert: 20000,//time in ms before considering a request timeout
     morgan: {

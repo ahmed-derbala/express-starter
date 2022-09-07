@@ -1,11 +1,12 @@
 #!/usr/bin/env node
-const packagejson = require(`./package.json`);
+console.clear()
+process.on('warning', e => console.warn(e.stack));//print out memory leak errors
+
 const ip = require("ip");
-const appConfig = require(`./configs/app.config`)
+const appConf = require(`./configs/app.config`)
 require(`./utils/db`);//connect to db
 const { log } = require(`./utils/log`)
 
-process.on('warning', e => console.warn(e.stack));//print out memory leak errors
 
 /**
  * Module dependencies.
@@ -16,7 +17,7 @@ var http = require('http');
 /**
  * Get port from environment and store in Express.
  */
-app.set('port', appConfig.backend.port);
+app.set('port', appConf.backend.port);
 
 /**
  * Create HTTP server.
@@ -26,12 +27,12 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-if (appConfig.cluster > 0) {
+if (appConf.cluster > 0) {
   let cluster = require('cluster');
   if (cluster.isMaster) {
-    log({ message: `cluster is enabled. ${appConfig.cluster} cpus are in use`, level: 'debug' })
+    log({ message: `cluster is enabled. ${appConf.cluster} cpus are in use`, level: 'debug' })
     // Create a worker for each CPU
-    for (let c = 1; c <= appConfig.cluster; c++) {
+    for (let c = 1; c <= appConf.cluster; c++) {
       cluster.fork();
     }
 
@@ -43,13 +44,13 @@ if (appConfig.cluster > 0) {
 
   } else {
     //launching the server
-    server.listen(appConfig.backend.port, console.log(`******** ${packagejson.name} ${packagejson.version} http://${ip.address()}:${appConfig.backend.port}/ NODE_ENV=${appConfig.NODE_ENV} fork ${cluster.worker.id} pid ${cluster.worker.process.pid} ********`));
+    server.listen(appConf.backend.port, log({ message: `*** ${appConf.name} ${appConf.version} http://${ip.address()}:${appConf.backend.port}/ NODE_ENV=${appConf.NODE_ENV} fork ${cluster.worker.id} pid ${cluster.worker.process.pid} ***`, level: 'debug' }))
     server.on('error', onError);
     server.on('listening', onListening);
   }
 } else {
   //launching the server without cluster
-  server.listen(appConfig.backend.port, console.log(`******** ${packagejson.name} ${packagejson.version} http://${ip.address()}:${appConfig.backend.port}/ NODE_ENV=${appConfig.NODE_ENV} ********`));
+  server.listen(appConf.backend.port, log({ message: `*** ${appConf.name} ${appConf.version} http://${ip.address()}:${appConf.backend.port}/ NODE_ENV=${appConf.NODE_ENV} ***`, level: 'debug' }))
   server.on('error', onError);
   server.on('listening', onListening);
 }
@@ -66,9 +67,9 @@ function onError(error) {
     throw error;
   }
 
-  const bind = typeof appConfig.backend.port === 'string'
-    ? 'Pipe ' + appConfig.backend.port
-    : 'Port ' + appConfig.backend.port;
+  const bind = typeof appConf.backend.port === 'string'
+    ? 'Pipe ' + appConf.backend.port
+    : 'Port ' + appConf.backend.port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
