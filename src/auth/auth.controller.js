@@ -24,7 +24,7 @@ module.exports.signin = async (req, res) => {
         .then(result => {
             return res.status(result.status).json(result)
         })
-        .catch(err => errorHandler({ err, res }))
+        .catch(err => errorHandler({ err,req, res }))
 }
 
 module.exports.signout = async (req, res) => {

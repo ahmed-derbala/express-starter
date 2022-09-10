@@ -1,17 +1,14 @@
 const { validationResult } = require('express-validator');
 const { log } = require(`./log`)
-const caller = require('caller-id');
 
 
 exports.errorHandler = ({ err, req, res, next }) => {
-   // if (!req) req = {}
-    // console.log(req.headers,'req11')
+    // console.log('errorHandler...')
+    // console.error({ err,  })
 
     let status = 500
     let errObject = {}
     errObject.level = 'error'
-    errObject.caller = caller.getDetailedString()
-
 
     if (err) {
         errObject.error = err
@@ -35,16 +32,18 @@ exports.errorHandler = ({ err, req, res, next }) => {
     if (!errObject.message) errObject.message = 'error'
 
     // console.log(errObject,'object')
-    if (res) {
-          res.status(status).json(errObject)
-    }
     if (req) {
         errObject.req = {}
         errObject.req.ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
         errObject.req.user = req.user
     }
+    if (res) {
+        res.status(status).json(errObject)
+    } else {
+        throw err
+    }
 
-    return log(errObject)
+   // return log(errObject)
 };
 
 /**

@@ -34,7 +34,7 @@ module.exports.signup = async ({user}) => {
 }
 
 module.exports.signin = async ({user,req}) => {
-    return Users.findOne({ email: user.email }).lean().select('+password')
+    return await Users.findOne({ email: user.email }).lean().select('+password')
         .then(fetchedUser => {
             if (fetchedUser == null) {
                 return { message: 'user not found', data: null, status: 404 }

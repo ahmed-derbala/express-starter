@@ -9,15 +9,17 @@ const logConf = require(`../configs/log.config`)
 const _ = require('lodash');
 
 
-module.exports.log = (params) => {
-  //console.log(params,'log params')
-  if (!params) params = {}
-  if (!params.level) params.level = 'debug'
-  if (!params.message) params.message = 'msg'
+module.exports.log = ({ req, level, message }) => {
+  //console.log('log')
+  //console.log({req,level,message})
+  if (!level) level = 'debug'
+  if (!message) message = 'msg'
 
-  //console.log(logConf.createLoggerOptions,'logConf.createLoggerOptions');
-   const logger=winston.createLogger(logConf.createLoggerOptions)[params.level](params)
-   logger.close()
+  winston.addColors(logConf.colors)
+
+  let logger = winston.createLogger(logConf.createLoggerOptions)
+  logger[level]({ req, level, message })
+  logger.close()
 }
 
 

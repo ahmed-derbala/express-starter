@@ -34,8 +34,12 @@ morgan.token('referrer', (req) => {
 
 morgan.token('body', (req) => {
     if (!req.body) req.body = {}
-    if (req.body.password) {
-        req.body.password = '*****';
+
+    for (let [key, value] of Object.entries(req.body)) {
+        if (appConf.morgan.hiddenBodyFields.includes(key)) req.body[key] = '***'
+        for (let [k, v] of Object.entries(req.body[key])) {
+            if (appConf.morgan.hiddenBodyFields.includes(`${key}.${k}`)) req.body[key][k] = '***'
+        }
     }
     return JSON.stringify(req.body);
 });

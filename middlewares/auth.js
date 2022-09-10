@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
 const Users = require(`../src/users/users.schema`)
 const Sessions = require(`../src/sessions/sessions.schema`)
 const { errorHandler } = require('../utils/error');

@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node main.js",
-    "local": "code . && npm run start:dev",
+    "start:code": "code . && npm run start:dev",
     "start:dev": "nodemon main.js",
     "start:fresh": "git pull origin main && npm i && npm run start:dev",
-    "update": "ncu -u && npm i && npm run start:dev",
+    "update:all": "ncu -u && npm i && npm run start:dev",
     "clean": "rm -f package-lock.json && rm -r -f node_modules && npm i && npm run start:dev",
     "git": "git add . && git commit -m",
     "postgit": "git push && npm run start:dev"
@@ -23,24 +23,25 @@
   "dependencies": {
     "app-root-path": "^3.1.0",
     "bcrypt": "^5.0.1",
-    "caller-id": "^0.1.0",
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "express": "^4.18.1",
     "express-rate-limit": "^6.6.0",
     "express-useragent": "^1.0.15",
     "express-validator": "^6.14.2",
     "express-winston": "^4.2.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.5.4",
+    "mongoose": "^6.6.0",
     "mongoose-unique-validator": "^3.1.0",
     "morgan": "^1.10.0",
-    "nodemailer": "^6.7.8",
+    "socket.io": "^4.5.2",
     "use-strict": "^1.0.1",
-    "winston": "^3.8.1",
+    "winston": "^3.8.2",
     "winston-mongodb": "^5.0.7"
   },
   "devDependencies": {
     "nodemon": "^2.0.19",
-    "npm-check-updates": "^16.1.0"
+    "npm-check-updates": "^16.1.2"
   }
 }

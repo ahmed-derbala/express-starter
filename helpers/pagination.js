@@ -22,7 +22,7 @@ module.exports.paginate = async ({
   let options = {
     allowDiskUse: true,
     lean: true,
-    collation: { locale: 'fr' },
+    collation: { locale: 'en' },
     sort,
     skip,
     limit,

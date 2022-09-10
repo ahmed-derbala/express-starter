@@ -11,10 +11,22 @@ const { randomUUID } = require('crypto');
 const { transportsOptions } = require('./configs/log.config')
 const rateLimit = require('express-rate-limit')
 const appConf = require(`./configs/app.config`)
+const { log } = require(`./utils/log`)
+const compression = require('compression')
+const cors = require('cors')
+
 
 
 let app = express();
-app.use('/api', rateLimit(appConf.apiLimiter))
+//app.use(cors())
+app.use(cors({
+  origin: "*",
+  methods: "GET,PUT,POST,DELETE",
+   credentials: true,
+}))
+app.use(compression())
+//app.use('/api', rateLimit(appConf.apiLimiter))
+
 //process transaction id
 const tidHandler = (request, response, next) => {
   if (!request.headers.tid) {
@@ -32,6 +44,7 @@ app.use(expressWinston.logger({
   expressFormat: true
 }));
 
+
 app.use(morganLogger())
 app.use(useragent.express());
 app.use(express.json());
@@ -41,5 +54,11 @@ app.disable('x-powered-by');
 app.disable('etag');
 
 loaders.routes(app)//load routes
+
+//404
+app.use((req, res, next) => {
+  res.status(404).json({ status: 404, message: '404 not found', data: null })
+})
+
 
 module.exports = app;
