@@ -18,12 +18,7 @@ const cors = require('cors')
 
 
 let app = express();
-//app.use(cors())
-app.use(cors({
-  origin: "*",
-  methods: "GET,PUT,POST,DELETE",
-   credentials: true,
-}))
+app.use(cors(appConf.corsOptions))
 app.use(compression())
 //app.use('/api', rateLimit(appConf.apiLimiter))
 

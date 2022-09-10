@@ -2,13 +2,13 @@
 a clean project to start an express app faster
 
 # features
-javascript with nodejs v14
-everything is configurable in /configs
-clean architecture: /src has the solution logic only
-socketio
-winston for logs
-mongo as main db
-json requests logs with morgan and winston
+- javascript with nodejs v14
+- everything is configurable in /configs
+- clean architecture: /src has the solution logic only
+- socketio
+- winston for logs
+- mongo as main db
+- json requests logs with morgan and winston
 
 
 # first run

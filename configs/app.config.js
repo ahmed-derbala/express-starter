@@ -26,5 +26,10 @@ module.exports = {
         standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
         legacyHeaders: false, // Disable the `X-RateLimit-*` headers 
     },
-    use_strict: true
+    use_strict: true,
+    corsOptions: {
+        origin: "*",
+        //methods: "GET,PUT,POST,DELETE,PATCH",
+        credentials: true,
+    }
 }

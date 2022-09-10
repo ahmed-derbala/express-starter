@@ -47,6 +47,22 @@ const transportsOptions = {
   }
 }
 
+const levels={
+  error:0,
+  warn:1,
+  verbose:2,
+  socket:3,
+  debug:4
+}
+
+const levelNames={
+  error:'error',
+  warn:'warn',
+  verbose:'verbose',
+  socket:'socket',
+  debug:'debug'
+}
+
 let createLoggerOptions = {
   transports: [
     //new transports.File(transportsOptions.file),//Error: write after end
@@ -54,12 +70,18 @@ let createLoggerOptions = {
     new transports.MongoDB(transportsOptions.mongo)
   ],
   exitOnError: false,
+  levels
 }
 
 const colors = {
-  debug: 'bold green',
-  warn: 'bold yellow'
+  error:'red',
+  warn:'yellow',
+  verbose:'green',
+  socket:'magenta',
+  debug:'white'
 }
+
+
 
 /*if (fs.existsSync(`${appRootPath}/configs/log.config.${appConf.NODE_ENV}.js`)) {
   createLoggerOptions=require(`./log.config.${appConf.NODE_ENV}.js`)
@@ -67,5 +89,5 @@ const colors = {
 }*/
 
 module.exports = {
-  createLoggerOptions, transportsOptions, colors
+  createLoggerOptions, transportsOptions, colors,levels,levelNames
 }

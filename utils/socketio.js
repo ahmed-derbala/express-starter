@@ -1,14 +1,14 @@
 const http = require('http')
-const socketioConf = require('../configs/socketio.config')
-
+const socketioConf = require('../configs/socketio.config');
+const { log } = require('./log');
+const logConf =require('../configs/log.config')
 
 exports.socketio = ({ server }) => {
-    console.log('hello from socketio');
     let socket = require('socket.io')(server, socketioConf.options);
 
-
-    socket.on('connection', (data) => {
-        console.log('a user connected');
+    socket.on('connection', (socketData) => {
+        //console.log('a user connected');
+        log({level:logConf.levelNames.socket,message:`socketId=${socketData.id} | ip=${socketData.handshake.address} | userAgent=${socketData.handshake.headers['user-agent']}`})
     });
 
     socket.on('error', (error) => {
