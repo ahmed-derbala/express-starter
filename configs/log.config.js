@@ -41,7 +41,7 @@ const transportsOptions = {
       useUnifiedTopology: true
     },
     decolorize: true,
-    expireAfterSeconds: 1,
+    expireAfterSeconds: 3600,
     collection: 'logs',
     format: format.metadata()
   }

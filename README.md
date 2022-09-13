@@ -6,19 +6,21 @@ a clean project to start an express app faster
 - everything is configurable in /configs
 - clean architecture: /src has the solution logic only
 - socketio
-- winston for logs
+- logs: winston (file, console, mongo)
 - mongo as main db
 - json requests logs with morgan and winston
+- cluster: configurable in configs/app.config
 
 
 # first run
 ```
 npm i
+npm run start:code
 ```
 update to latest all packages with npm-check-updates and start with nodemon
 
 ```
-npm run ncu
+npm run update:all
 ```
 
 # run dev envirement
@@ -31,6 +33,3 @@ you can import postman collection located in
 ```
 docs/express-starter.postman_collection.json
 ```
-
-# npm run ncu
-update all packages to @latest 
