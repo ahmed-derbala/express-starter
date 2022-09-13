@@ -1,6 +1,6 @@
 {
   "name": "express-starter",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node --max-old-space-size=32000 main.js",
