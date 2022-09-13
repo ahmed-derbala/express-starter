@@ -37,13 +37,13 @@ const { log } = require(`./utils/log`)
  
    } else {
      //launching the server
-     server.listen(appConf.backend.port, log({ message: `*** ${appConf.name} ${appConf.version} ${appConf.backend.url} NODE_ENV=${appConf.NODE_ENV} fork ${cluster.worker.id} pid ${cluster.worker.process.pid} ***`, level: 'debug' }))
+     server.listen(appConf.backend.port, log({ message: `*** ${appConf.name} ${appConf.version} ${appConf.backend.url} NODE_ENV=${appConf.NODE_ENV} fork ${cluster.worker.id} pid ${cluster.worker.process.pid} ***`, level: 'startup' }))
      server.on('error', onError);
      server.on('listening', onListening);
    }
  } else {
    //launching the server without cluster
-   server.listen(appConf.backend.port, log({ message: `*** ${appConf.name} ${appConf.version} ${appConf.backend.url} NODE_ENV=${appConf.NODE_ENV} ***`, level: 'debug' }))
+   server.listen(appConf.backend.port, log({ message: `*** ${appConf.name} ${appConf.version} ${appConf.backend.url} NODE_ENV=${appConf.NODE_ENV} ***`, level: 'startup' }))
    server.on('error', onError);
    server.on('listening', onListening);
  }

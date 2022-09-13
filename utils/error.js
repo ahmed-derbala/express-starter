@@ -1,11 +1,19 @@
 const { validationResult } = require('express-validator');
 const { log } = require(`./log`)
 
-
+/**
+ * handle errors
+ * @param {Object} error 
+ * @param {Object | String} error.err the error message or object
+ * @param {Request} error.req request object
+ * @param {Response} error.res response object
+ * @param {Next} error.next next object
+ */
 exports.errorHandler = ({ err, req, res, next }) => {
-    // console.log('errorHandler...')
+     console.log('errorHandler...')
     // console.error({ err,  })
 
+    if (typeof err == 'string') err = { message: err }
     let status = 500
     let errObject = {}
     errObject.level = 'error'
@@ -43,7 +51,7 @@ exports.errorHandler = ({ err, req, res, next }) => {
         throw err
     }
 
-   // return log(errObject)
+    // return log(errObject)
 };
 
 /**
@@ -52,10 +60,10 @@ exports.errorHandler = ({ err, req, res, next }) => {
 exports.validatorCheck = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        console.error({
+        log({
             label: 'VALIDATION_ERROR',
             message: JSON.stringify(errors.errors),
-            body: req.body,
+            req,
         });
         return res.status(422).json({ message: `validation error`, err: errors.errors });
     }

@@ -77,5 +77,5 @@ const schema = new mongoose.Schema({
 
     schema.plugin(uniqueValidator);
 
-module.exports = mongoose.model('users', schema);
+module.exports = mongoose.model('enterprises', schema);
 

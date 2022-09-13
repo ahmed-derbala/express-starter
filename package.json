@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node main.js",
+    "start": "node --max-old-space-size=32000 main.js",
     "start:code": "code . && npm run start:dev",
-    "start:dev": "nodemon main.js",
+    "start:dev": "nodemon --max-old-space-size=32000 main.js",
     "start:fresh": "git pull origin main && npm i && npm run start:dev",
     "update:all": "ncu -u && npm i && npm run start:dev",
     "clean": "rm -f package-lock.json && rm -r -f node_modules && npm i && npm run start:dev",

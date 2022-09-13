@@ -10,7 +10,7 @@ const transportsOptions = {
     level: 'verbose',
     filename: `${appRootPath}/logs/${appConf.name}.log`,
     handleExceptions: true,
-    maxsize: 5000000, //5MB, 1 million = 1 mb
+    maxsize: 1000000, //1 million = 1 mb
     maxFiles: 2,
     json: true,
     format: format.combine(
@@ -21,7 +21,7 @@ const transportsOptions = {
   },
 
   console: {
-    level: 'debug',
+    level: 'startup',
     json: true,
     handleExceptions: true,
     format: format.combine(
@@ -52,7 +52,8 @@ const levels={
   warn:1,
   verbose:2,
   socket:3,
-  debug:4
+  debug:4,
+  startup:5
 }
 
 const levelNames={
@@ -78,7 +79,8 @@ const colors = {
   warn:'yellow',
   verbose:'green',
   socket:'magenta',
-  debug:'white'
+  debug:'white',
+  startup:'white blueBG'
 }
 
 

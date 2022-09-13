@@ -9,6 +9,13 @@ const logConf = require(`../configs/log.config`)
 const _ = require('lodash');
 
 
+/**
+ * log function
+ * @param {Object} log
+ * @param {Request} log.req 
+ * @param {string} log.level
+ * @param {string} log.message
+ */
 module.exports.log = ({ req, level, message }) => {
   //console.log('log')
   //console.log({req,level,message})
