@@ -63,7 +63,7 @@ const colors = {
   socket: 'magenta',
   debug: 'white',
   success: 'greenBG black',
-  startup: 'white'
+  startup: 'white blueBG'
 }
 
 const levelNames = {

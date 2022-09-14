@@ -10,6 +10,8 @@ a clean project to start an express app faster. This made using node v14
 - mongo as main db
 - json requests logs with morgan and winston
 - cluster: configurable in configs/app.config
+- load config file based on NODE_ENV: example: const logConf = require(`../utils/requireConf`)('log')
+
 
 
 # first run
@@ -17,7 +19,7 @@ a clean project to start an express app faster. This made using node v14
 npm i
 npm run start:code
 ```
-update to latest all packages with npm-check-updates and start with nodemon
+update to latest all packages
 
 ```
 npm run update:all

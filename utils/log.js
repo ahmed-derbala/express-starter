@@ -4,10 +4,7 @@
  */
 const winston = require('winston'); //logging module
 require('winston-mongodb');
-const logConf = require(`../utils/requireConf`)('log')
-//console.log(logConf,'logConf');
-const _ = require('lodash');
-
+const logConf = require(`./requireConf`)('log')
 
 /**
  * log function
