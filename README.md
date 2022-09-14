@@ -1,5 +1,5 @@
 # express-starter
-a clean project to start an express app faster
+a clean project to start an express app faster. This made using node v14
 
 # features
 - javascript with nodejs v14
@@ -25,7 +25,7 @@ npm run update:all
 
 # run dev envirement
 ```
-npm run dev
+npm run start:dev
 ```
 
 # postman collection

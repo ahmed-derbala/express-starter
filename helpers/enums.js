@@ -1,2 +1,8 @@
-exports.shopCategories=['restaurant','cafe','fish','agro']
-exports.productCategories=['IT','electronics']
+exports.categories = {
+    shop: ['restaurant', 'cafe', 'fish', 'agro'],
+    product: ['IT', 'electronics'],
+}
+
+exports.jobs={
+    names:['waiter','worker']
+}

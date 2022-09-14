@@ -17,17 +17,17 @@ const {tidHandler}=require('./helpers/tid')
 
 let app = express();
 app.use(cors(appConf.corsOptions))
+app.use('/api', rateLimit(appConf.apiLimiter))
 app.use(compression())
 app.use(helmet())
-app.use('/api', rateLimit(appConf.apiLimiter))
 app.use(tidHandler)
-app.use(morganLogger())
 app.use(useragent.express());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.disable('x-powered-by');
 app.disable('etag');
+app.use(morganLogger())
 
 
 app.use(expressWinston.logger({

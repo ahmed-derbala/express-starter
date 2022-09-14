@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const appRootPath = require('app-root-path');
-const authCtrl = require(`${appRootPath}/src/auth/auth.controller`)
+const authCtrl = require(`${process.cwd()}/src/auth/auth.controller`)
 const { check, query, param } = require('express-validator');
-const validatorCheck = require(`${appRootPath}/utils/error`).validatorCheck;
-const { authenticate } = require(`${appRootPath}/middlewares/auth`)
+const validatorCheck = require(`${process.cwd()}/utils/error`).validatorCheck;
+const { authenticate } = require(`${process.cwd()}/middlewares/auth`)
 
 
 

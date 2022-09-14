@@ -67,7 +67,7 @@ const stream = {
         }
 
         let level = 'error'
-        if (_.inRange(req.status, 200, 399)) level = 'debug'
+        if (_.inRange(req.status, 200, 399)) level = 'verbose'
         if (_.inRange(req.status, 400, 499)) level = 'warn'
 
         if (level != 'error') log({ req, level })//we only need to log non error requests cause they will be logged in errorHandler

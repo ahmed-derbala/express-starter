@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 console.clear()
-const appConf = require(`./configs/app.config`)
+const appConf = require(`./utils/requireConf`)('app')
 
 if (appConf.use_strict) require('use-strict')
 

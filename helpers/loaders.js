@@ -1,15 +1,14 @@
 const fs = require('fs');
-const appRootPath = require('app-root-path');
 const { log } = require(`../utils/log`)
 
 
 
 
 module.exports.routes = (app) => {
-    let directories = fs.readdirSync(`${appRootPath}/src/`)
+    let directories = fs.readdirSync(`${process.cwd()}/src/`)
     let endpoint_root,files
     for (const dir of directories) {
-        files = fs.readdirSync(`${appRootPath}/src/${dir}`)
+        files = fs.readdirSync(`${process.cwd()}/src/${dir}`)
         if (files.length > 0) {
             for (const file of files) {
                 if (file.includes('.route.js')) {
@@ -20,6 +19,6 @@ module.exports.routes = (app) => {
         }
     }
     app.use(`/`, require(`../src/index/index.route`));//make sure main url works with src/index
-    log({ level: 'debug', message: 'routes loaded' })
+    log({ level: 'success', message: 'routes loaded' })
 }
 

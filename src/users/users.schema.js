@@ -1,32 +1,13 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const usersConfig = require(`../../configs/users.config`)
+const schemas = require('../../helpers/schemas')
+const enums=require('../../helpers/enums')
 
 
 
 
-const profileSchema = new mongoose.Schema({
-    firstname: {
-        type: String,
-        required: true,
-    },
-    middlename: {
-        type: String,
-        required: false,
-    },
-    lastname: {
-        type: String,
-        required: true,
-    },
-    displayname: {
-        type: String,
-        required: true,
-    },
-    birthdate: {
-        type: Date,
-        required: false,
-    },
-}, { _id: false })
+
 
 const phoneSchema = new mongoose.Schema({
     fullNumber: { type: String, required: false },
@@ -37,7 +18,7 @@ const phoneSchema = new mongoose.Schema({
 
 const schema = new mongoose.Schema({
     profile: {
-        type: profileSchema,
+        type: schemas.profile,
         select: false
     },
     username: {
@@ -71,7 +52,19 @@ const schema = new mongoose.Schema({
     isActive: {
         type: Boolean,
         default: true
-    }
+    },
+    jobs:[
+        {
+            name:{
+                type:String,
+                enum:enums.jobs.names
+            },
+            shopId:{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'shops',
+            },
+        }
+    ]
 },
     { timestamps: true });
 

@@ -1,4 +1,4 @@
-const appConf = require(`./configs/app.config`)
+const appConf = require(`./utils/requireConf`)('app')
 const { log } = require(`./utils/log`)
 
 /**
@@ -23,7 +23,7 @@ const { log } = require(`./utils/log`)
  if (appConf.cluster > 0) {
    let cluster = require('cluster');
    if (cluster.isMaster) {
-     log({ message: `cluster is enabled. ${appConf.cluster} cpus are in use`, level: 'debug' })
+     log({ message: `cluster is enabled. ${appConf.cluster} cpus are in use`, level: 'success' })
      // Create a worker for each CPU
      for (let c = 1; c <= appConf.cluster; c++) {
        cluster.fork();
@@ -37,13 +37,13 @@ const { log } = require(`./utils/log`)
  
    } else {
      //launching the server
-     server.listen(appConf.backend.port, log({ message: `*** ${appConf.name} ${appConf.version} ${appConf.backend.url} NODE_ENV=${appConf.NODE_ENV} fork ${cluster.worker.id} pid ${cluster.worker.process.pid} ***`, level: 'startup' }))
+     server.listen(appConf.backend.port, log({ message: `${appConf.name} ${appConf.version} ${appConf.backend.url} NODE_ENV=${appConf.NODE_ENV} fork ${cluster.worker.id} pid ${cluster.worker.process.pid}`, level: 'startup' }))
      server.on('error', onError);
      server.on('listening', onListening);
    }
  } else {
    //launching the server without cluster
-   server.listen(appConf.backend.port, log({ message: `*** ${appConf.name} ${appConf.version} ${appConf.backend.url} NODE_ENV=${appConf.NODE_ENV} ***`, level: 'startup' }))
+   server.listen(appConf.backend.port, log({ message: `${appConf.name} ${appConf.version} ${appConf.backend.url} NODE_ENV=${appConf.NODE_ENV}`, level: 'startup' }))
    server.on('error', onError);
    server.on('listening', onListening);
  }
@@ -87,7 +87,7 @@ const { log } = require(`./utils/log`)
    const bind = typeof addr === 'string'
      ? 'pipe ' + addr
      : 'port ' + addr.port;
-   log({ level: 'debug', message: `Listening on ${bind}` });
+   log({ level: 'success', message: `Listening on ${bind}` });
  }
  
  module.exports=server

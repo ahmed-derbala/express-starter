@@ -1,10 +1,16 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
-const enums=require('../../helpers/enums')
-const schemas =require('../../helpers/schemas')
+const schemas = require('../../helpers/schemas')
+
+
+
 
 
 const schema = new mongoose.Schema({
+    profile: {
+        type: schemas.profile,
+        select: false
+    },
     username: {
         type: String,
         required: false,
@@ -14,30 +20,31 @@ const schema = new mongoose.Schema({
         required: true,
         unique: false//true
     },
+    password: {
+        type: String,
+        required: true,
+        select: false
+    },
     phone: {
         type: schemas.phone,
         select: false
     },
-    category: {
-        type: string,
-        enum: enums.categories.shop,
+    isActive: {
+        type: Boolean,
+        default: true
     },
-    userId: {
+    shopId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
+        ref: 'shops',
     },
     enterpriseId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'enterprises',
     },
-    isActive: {
-        type: Boolean,
-        default: true
-    }
 },
     { timestamps: true });
 
 schema.plugin(uniqueValidator);
 
-module.exports = mongoose.model('shops', schema);
+module.exports = mongoose.model('employees', schema);
 

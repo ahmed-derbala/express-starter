@@ -2,10 +2,10 @@
  * this file has the logging system
  * logging system written in seperate file to make it easy to integrates in other projects and to be extensible as possible
  */
-const appRootPath = require('app-root-path');
 const winston = require('winston'); //logging module
 require('winston-mongodb');
-const logConf = require(`../configs/log.config`)
+const logConf = require(`../utils/requireConf`)('log')
+//console.log(logConf,'logConf');
 const _ = require('lodash');
 
 

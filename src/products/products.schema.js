@@ -16,7 +16,7 @@ const schema = new mongoose.Schema({
     },
     category: {
         type: string,
-        enum: enums.productCategories,
+        enum: enums.categories.product,
     },
     createdByUser: {
         type: mongoose.Schema.Types.ObjectId,

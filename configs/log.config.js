@@ -1,17 +1,16 @@
+const appConf = require(`../utils/requireConf`)('app')
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, label, prettyPrint, colorize } = format;
-const { mainMongo } = require(`../configs/mongo.config`)
-const appRootPath = require('app-root-path');
-const appConf = require(`./app.config`)
-const fs = require('fs');
+const  dbConf  = require(`../utils/requireConf`)('db')
 
 const transportsOptions = {
   file: {
     level: 'verbose',
-    filename: `${appRootPath}/logs/${appConf.name}.log`,
+    filename: `${process.cwd()}/logs/${appConf.name}.log`,
     handleExceptions: true,
     maxsize: 1000000, //1 million = 1 mb
     maxFiles: 2,
+    decolorize: true,
     json: true,
     format: format.combine(
       format.timestamp({
@@ -36,7 +35,7 @@ const transportsOptions = {
 
   mongo: {
     level: 'warn',
-    db: mainMongo.uri,
+    db: dbConf.mongo.uri,
     options: {
       useUnifiedTopology: true
     },
@@ -47,21 +46,32 @@ const transportsOptions = {
   }
 }
 
-const levels={
-  error:0,
-  warn:1,
-  verbose:2,
-  socket:3,
-  debug:4,
-  startup:5
+const levels = {
+  error: 0,
+  warn: 1,
+  verbose: 2,
+  socket: 3,
+  debug: 4,
+  success: 5,
+  startup: 5
 }
 
-const levelNames={
-  error:'error',
-  warn:'warn',
-  verbose:'verbose',
-  socket:'socket',
-  debug:'debug'
+const colors = {
+  error: 'redBG',
+  warn: 'yellow',
+  verbose: 'green',
+  socket: 'magenta',
+  debug: 'white',
+  success: 'greenBG black',
+  startup: 'white blueBG'
+}
+
+const levelNames = {
+  error: 'error',
+  warn: 'warn',
+  verbose: 'verbose',
+  socket: 'socket',
+  debug: 'debug'
 }
 
 let createLoggerOptions = {
@@ -74,22 +84,10 @@ let createLoggerOptions = {
   levels
 }
 
-const colors = {
-  error:'red',
-  warn:'yellow',
-  verbose:'green',
-  socket:'magenta',
-  debug:'white',
-  startup:'white blueBG'
-}
 
 
 
-/*if (fs.existsSync(`${appRootPath}/configs/log.config.${appConf.NODE_ENV}.js`)) {
-  createLoggerOptions=require(`./log.config.${appConf.NODE_ENV}.js`)
- // console.log(createLoggerOptions,'createLoggerOptions')
-}*/
 
 module.exports = {
-  createLoggerOptions, transportsOptions, colors,levels,levelNames
+  createLoggerOptions, transportsOptions, colors, levels, levelNames
 }

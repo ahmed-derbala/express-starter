@@ -1,19 +1,16 @@
+const appConf = require(`../utils/requireConf`)('app')
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, label, prettyPrint, colorize } = format;
-const { mainMongo } = require(`../configs/mongo.config`)
-const appRootPath = require('app-root-path');
-const packagejson = require(`${appRootPath}/package.json`);
-const appConf = require(`./app.config`)
-const fs = require('fs');
+const  dbConf  = require(`../utils/requireConf`)('db')
 
 const transportsOptions = {
   file: {
     level: 'verbose',
-    filename: `${appRootPath}/logs/${packagejson.name}.log`,
-    //timestamp: true,
+    filename: `${process.cwd()}/logs/${appConf.name}.log`,
     handleExceptions: true,
-    maxsize: 1000000, //1MB, 1 million = 1 mb
+    maxsize: 1000000, //1 million = 1 mb
     maxFiles: 2,
+    decolorize: true,
     json: true,
     format: format.combine(
       format.timestamp({
@@ -23,7 +20,7 @@ const transportsOptions = {
   },
 
   console: {
-    level: 'debug',
+    level: 'startup',
     json: true,
     handleExceptions: true,
     format: format.combine(
@@ -37,31 +34,60 @@ const transportsOptions = {
   },
 
   mongo: {
-    db: mainMongo.uri,
+    level: 'warn',
+    db: dbConf.mongo.uri,
     options: {
       useUnifiedTopology: true
     },
     decolorize: true,
+    expireAfterSeconds: 3600,
+    collection: 'logs',
+    format: format.metadata()
   }
 }
 
-const createLoggerOptions = {
+const levels = {
+  error: 0,
+  warn: 1,
+  verbose: 2,
+  socket: 3,
+  debug: 4,
+  success: 5,
+  startup: 5
+}
+
+const colors = {
+  error: 'redBG',
+  warn: 'yellow',
+  verbose: 'green',
+  socket: 'magenta',
+  debug: 'white',
+  success: 'greenBG black',
+  startup: 'white'
+}
+
+const levelNames = {
+  error: 'error',
+  warn: 'warn',
+  verbose: 'verbose',
+  socket: 'socket',
+  debug: 'debug'
+}
+
+let createLoggerOptions = {
   transports: [
-    new transports.File(transportsOptions.file),
+    //new transports.File(transportsOptions.file),//Error: write after end
     new transports.Console(transportsOptions.console),
-    new transports.MongoDB(transportsOptions.mongo)
+    //   new transports.MongoDB(transportsOptions.mongo)
   ],
   exitOnError: false,
+  levels
 }
+
+
 
 
 
 module.exports = {
-    transports: [
-     // new transports.File(transportsOptions.file),
-      new transports.Console(transportsOptions.console),
-      new transports.MongoDB(transportsOptions.mongo)
-    ],
-    exitOnError: false,
-  
+  createLoggerOptions, transportsOptions, colors, levels, levelNames
 }

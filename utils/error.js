@@ -64,6 +64,7 @@ exports.validatorCheck = (req, res, next) => {
             label: 'VALIDATION_ERROR',
             message: JSON.stringify(errors.errors),
             req,
+            level:'warn'
         });
         return res.status(422).json({ message: `validation error`, err: errors.errors });
     }

@@ -14,7 +14,7 @@ if (!user && !password) uri = `mongodb://${host}:${port}/${name}`
 else uri = `mongodb://${user}:${password}@${host}:${port}/${name}`
 
 module.exports = {
-    mainMongo: {
+    mongo: {
         host,
         port,
         name,

@@ -21,7 +21,6 @@
   ],
   "author": "Ahmed Derbala <ahmed.derbala@esprit.tn>",
   "dependencies": {
-    "app-root-path": "^3.1.0",
     "bcrypt": "^5.0.1",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
@@ -33,7 +32,7 @@
     "express-winston": "^4.2.0",
     "helmet": "^6.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.6.0",
+    "mongoose": "^6.6.1",
     "mongoose-unique-validator": "^3.1.0",
     "morgan": "^1.10.0",
     "socket.io": "^4.5.2",
