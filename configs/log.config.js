@@ -2,6 +2,7 @@ const appConf = require(`../utils/requireConf`)('app')
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, label, prettyPrint, colorize } = format;
 const  dbConf  = require(`../utils/requireConf`)('db')
+require('winston-mongodb');
 
 const transportsOptions = {
   file: {
@@ -32,9 +33,8 @@ const transportsOptions = {
       colorize({ all: true }),//this must be always called at the end to make sure of colors
     ),
   },
-
   mongo: {
-    level: 'warn',
+    level: 'error',
     db: dbConf.mongo.uri,
     options: {
       useUnifiedTopology: true
@@ -53,16 +53,16 @@ const levels = {
   socket: 3,
   debug: 4,
   success: 5,
-  startup: 5
+  startup: 6
 }
 
 const colors = {
   error: 'redBG',
   warn: 'yellow',
-  verbose: 'green',
+  verbose: 'black greenBG',
   socket: 'magenta',
   debug: 'white',
-  success: 'greenBG black',
+  success: 'green',
   startup: 'white blueBG'
 }
 

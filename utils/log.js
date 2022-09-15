@@ -3,7 +3,6 @@
  * logging system written in seperate file to make it easy to integrates in other projects and to be extensible as possible
  */
 const winston = require('winston'); //logging module
-require('winston-mongodb');
 const logConf = require(`./requireConf`)('log')
 
 /**
@@ -24,6 +23,7 @@ module.exports.log = ({ req, level, message }) => {
   let logger = winston.createLogger(logConf.createLoggerOptions)
   logger[level]({ req, level, message })
   logger.close()
+  return logger
 }
 
 

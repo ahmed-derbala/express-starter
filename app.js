@@ -2,14 +2,12 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const useragent = require('express-useragent');
 const expressWinston = require('express-winston');
-require('winston-mongodb');
 const winston = require('winston'); //logging module
 const loaders = require('./helpers/loaders')
 const morganLogger = require(`./utils/morgan`)
-const { transportsOptions } = require('./configs/log.config')
+const logConf = require(`./utils/requireConf`)('log')
 const rateLimit = require('express-rate-limit')
 const appConf = require(`./configs/app.config`)
-const { log } = require(`./utils/log`)
 const compression = require('compression')
 const cors = require('cors')
 const helmet = require('helmet')
@@ -32,7 +30,7 @@ app.use(morganLogger())
 
 app.use(expressWinston.logger({
   transports: [
-    new winston.transports.MongoDB(transportsOptions.mongo)
+    new winston.transports.MongoDB(logConf.transportsOptions.mongo)
   ],
   expressFormat: true
 }));

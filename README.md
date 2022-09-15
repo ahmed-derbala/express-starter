@@ -2,7 +2,7 @@
 a clean project to start an express app faster. This made using node v14
 
 # features
-- javascript with nodejs v14
+- javascript with nodejs v14 and express 5
 - everything is configurable in /configs
 - clean architecture: /src has the solution logic only
 - socketio
@@ -10,7 +10,7 @@ a clean project to start an express app faster. This made using node v14
 - mongo as main db
 - json requests logs with morgan and winston
 - cluster: configurable in configs/app.config
-- load config file based on NODE_ENV: example: const logConf = require(`../utils/requireConf`)('log')
+- load config file based on NODE_ENV: example: const logConf = require(`../utils/requireConf`)('log'), so if NODE_ENV=production and configs/log.config.production exists it will be used instead of configs/log.config
 
 
 

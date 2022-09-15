@@ -43,9 +43,9 @@ morgan.token('body', (req) => {
     }
     return JSON.stringify(req.body);
 });
+
 morgan.token('nl', (req) => {
-    //new line
-    return '\n';
+    return '\n';//new line
 });
 
 morgan.token('origin', (req) => {
