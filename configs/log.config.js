@@ -79,6 +79,7 @@ const levelNames = {
 
 let createLoggerOptions = {
   transports: [
+    //comment or delete transports you dont want to use
     //new transports.File(transportsOptions.file),//Error: write after end
     new transports.Console(transportsOptions.console),
     new transports.MongoDB(transportsOptions.mongo)
@@ -87,8 +88,11 @@ let createLoggerOptions = {
   levels
 }
 
-
-
 module.exports = {
-  createLoggerOptions, transportsOptions, colors, levels, levelNames,memory:true
+  createLoggerOptions,
+  transportsOptions,
+  colors,
+  levels,
+  levelNames,
+  memory: true
 }

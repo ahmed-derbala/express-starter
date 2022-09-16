@@ -1,20 +1,20 @@
 {
   "name": "express-starter",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "engines": {
-    "node": "14.20.0"
+    "node": "16.16.0"
   },
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production pm2 start main.js -i max --node-args='--max-old-space-size=32000' -f && pm2 monit",
+    "start": "npm i --force && NODE_ENV=production pm2 start main.js -i max --node-args='--max-old-space-size=32000' -f && pm2 monit",
     "restart":"pm2 delete all && npm run start",
     "start:code": "code . && npm run start:dev",
     "start:dev": "nodemon --max-old-space-size=32000 main.js",
-    "start:fresh": "git pull origin main && npm i && npm run start:dev",
-    "update:all": "ncu -u && npm i --force && npm run start:dev",
-    "clean": "rm -f package-lock.json && rm -r -f node_modules && npm i --force && npm run start:dev",
+    "start:fresh": "git pull origin main && npm i --force && npm run start:code",
+    "update:all": "ncu -u && npm i --force && npm run start:code",
+    "clean": "rm -f package-lock.json && rm -r -f node_modules && npm run update:all",
     "git": "git add . && git commit -m",
-    "postgit": "git push && npm run start:dev",
+    "postgit": "git push && npm run start:code",
     "logs":"pm2 monit",
     "stop":"pm2 stop all",
     "delete":"pm2 delete all"

@@ -70,7 +70,7 @@ const { log } = require(`./utils/log`)
        process.exit(1);
        break;
      case 'EADDRINUSE':
-       log({ level: 'error', message: `${bind} is already in use` });
+       log({ level: 'error', message: `${bind} is already in use. If you used pm2, try npm run delete` });
        process.exit(1);
        break;
      default:

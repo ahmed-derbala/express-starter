@@ -6,7 +6,7 @@ require('winston-mongodb');
 
 const transportsOptions = {
   file: {
-    level: 'verbose',
+    level: 'warn',
     filename: `${process.cwd()}/logs/${appConf.name}.log`,
     handleExceptions: true,
     maxsize: 1000000, //1 million = 1 mb
@@ -21,7 +21,7 @@ const transportsOptions = {
   },
 
   console: {
-    level: 'startup',
+    level: 'warn',
     json: true,
     handleExceptions: true,
     format: format.combine(
@@ -35,7 +35,7 @@ const transportsOptions = {
   },
 
   mongo: {
-    level: 'error',
+    level: 'warn',
     db: dbConf.mongo.uri,
     options: {
       useUnifiedTopology: true
@@ -87,8 +87,11 @@ let createLoggerOptions = {
   levels
 }
 
-
-
 module.exports = {
-  createLoggerOptions, transportsOptions, colors, levels, levelNames,memory:false
+  createLoggerOptions,
+  transportsOptions,
+  colors,
+  levels,
+  levelNames,
+  memory: false
 }
