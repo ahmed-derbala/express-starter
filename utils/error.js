@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const  {log}  = require(`./log`)
+const { log } = require(`./log`)
 
 /**
  * handle errors
@@ -10,7 +10,7 @@ const  {log}  = require(`./log`)
  * @param {Next} error.next next object
  */
 exports.errorHandler = ({ err, req, res, next }) => {
-     console.log('errorHandler...')
+    console.log('errorHandler...')
     // console.error({ err,  })
 
     if (typeof err == 'string') err = { message: err }
@@ -47,11 +47,8 @@ exports.errorHandler = ({ err, req, res, next }) => {
     }
     if (res) {
         res.status(status).json(errObject)
-    } else {
-        throw err
-    }
-
-    // return log(errObject)
+    } 
+     return log(errObject)
 };
 
 /**
@@ -64,7 +61,7 @@ exports.validatorCheck = (req, res, next) => {
             label: 'VALIDATION_ERROR',
             message: JSON.stringify(errors.errors),
             req,
-            level:'warn'
+            level: 'warn'
         });
         return res.status(422).json({ message: `validation error`, err: errors.errors });
     }

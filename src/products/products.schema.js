@@ -1,12 +1,7 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
-const enums=require('../../helpers/enums')
-
-
-
-
-
-
+const enums = require('../../helpers/enums')
+const schemas = require('../../helpers/schemas')
 
 
 const schema = new mongoose.Schema({
@@ -16,20 +11,27 @@ const schema = new mongoose.Schema({
     },
     category: {
         type: string,
-        enum: enums.categories.product,
+        enum: enums.categories.products,
     },
-    createdByUser: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
     },
-    enterprise: {
+    shopId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'shops',
+    },
+    enterpriseId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'enterprises',
     },
     isActive: {
         type: Boolean,
         default: true
-    }
+    },
+    price: {
+        type: schemas.price,
+    },
 },
     { timestamps: true });
 

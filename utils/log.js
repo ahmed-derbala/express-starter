@@ -16,12 +16,14 @@ module.exports.log = ({ req, level, message }) => {
   //console.log('log')
   //console.log({req,level,message})
   if (!level) level = 'debug'
-  if (!message) message = 'msg'
 
   winston.addColors(logConf.colors)
 
+  let memory = null
+  if (logConf.memory) memory = process.memoryUsage()
   let logger = winston.createLogger(logConf.createLoggerOptions)
-  logger[level]({ req, level, message })
+  logger[level]({ req, level, message, memory })
+
   logger.close()
   return logger
 }

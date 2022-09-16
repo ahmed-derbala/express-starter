@@ -20,7 +20,7 @@ const schema = new mongoose.Schema({
     },
     category: {
         type: string,
-        enum: enums.categories.shop,
+        enum: enums.categories.shops,
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,

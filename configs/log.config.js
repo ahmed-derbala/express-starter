@@ -1,7 +1,7 @@
 const appConf = require(`../utils/requireConf`)('app')
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, label, prettyPrint, colorize } = format;
-const  dbConf  = require(`../utils/requireConf`)('db')
+const dbConf = require(`../utils/requireConf`)('db')
 require('winston-mongodb');
 
 const transportsOptions = {
@@ -33,6 +33,7 @@ const transportsOptions = {
       colorize({ all: true }),//this must be always called at the end to make sure of colors
     ),
   },
+
   mongo: {
     level: 'error',
     db: dbConf.mongo.uri,
@@ -57,8 +58,8 @@ const levels = {
 }
 
 const colors = {
-  error: 'redBG',
-  warn: 'yellow',
+  error: 'black redBG',
+  warn: 'black yellowBG',
   verbose: 'black greenBG',
   socket: 'magenta',
   debug: 'white',
@@ -71,7 +72,9 @@ const levelNames = {
   warn: 'warn',
   verbose: 'verbose',
   socket: 'socket',
-  debug: 'debug'
+  debug: 'debug',
+  success: 'success',
+  startup: 'startup'
 }
 
 let createLoggerOptions = {
@@ -86,8 +89,6 @@ let createLoggerOptions = {
 
 
 
-
-
 module.exports = {
-  createLoggerOptions, transportsOptions, colors, levels, levelNames
+  createLoggerOptions, transportsOptions, colors, levels, levelNames,memory:true
 }
