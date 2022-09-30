@@ -12,7 +12,7 @@ module.exports = {
         get url() { return `${this.protocol}${this.host}:${this.port}` },
     },
     //a number, 0 to disable
-    cluster: os.cpus().length,
+    cluster: 0,//os.cpus().length,
     NODE_ENV: process.env.NODE_ENV || 'local',
     responseTimeAlert: 20000,//time in ms before considering a request timeout
     morgan: {

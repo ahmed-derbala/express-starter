@@ -12,3 +12,11 @@ module.exports.getUsers = async (params) => {
         })
         .catch(err => errorHandler({ err }))
 }
+
+module.exports.getProfile = async ({username}) => {
+    return Users.findOne({username}).select('profile').lean()
+        .then(user => {
+            return user
+        })
+        .catch(err => errorHandler({ err }))
+}

@@ -3,7 +3,7 @@ const router = express.Router();
 const authCtrl = require(`${process.cwd()}/src/auth/auth.controller`)
 const { check, query, param } = require('express-validator');
 const validatorCheck = require(`${process.cwd()}/utils/error`).validatorCheck;
-const { authenticate } = require(`${process.cwd()}/middlewares/auth`)
+const { authenticate } = require(`${process.cwd()}/mw/auth`)
 
 
 

@@ -1,10 +1,10 @@
 # express-starter
-a clean project to start an express app faster. This made using node v14
+a clean project to start an express app faster. This made using node v16
 
 # features
 - javascript with nodejs v16 and express 5
 - everything is configurable in /configs
-- clean architecture: /src has the solution logic only
+- clean architecture: /src has the solution logic only, outside /src can be used in any project and they doesnt require much tuning
 - pm2 on production with npm start
 - socketio
 - logs: winston (file, console, mongo) with memory infos 
@@ -15,7 +15,7 @@ a clean project to start an express app faster. This made using node v14
 - vscode: most npm scripts ends with && code .
 
 
-# first run: update all modules and start the app with vscode
+# first run: install latest versions of modules and start the app with vscode
 ```
 npm run update:all
 ```

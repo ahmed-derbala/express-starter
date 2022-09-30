@@ -1,5 +1,5 @@
 const minLimit = 1,
-  defaultLimit = 100,
+  defaultLimit = 10,
   maxLimit = 300;
 
 module.exports.paginate = async ({

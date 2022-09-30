@@ -5,17 +5,6 @@ const schemas = require('../../helpers/schemas')
 const enums=require('../../helpers/enums')
 
 
-
-
-
-
-const phoneSchema = new mongoose.Schema({
-    fullNumber: { type: String, required: false },
-    countryCode: { type: String, required: false },
-    shortNumber: { type: String, required: false }
-}, { _id: false, timestamps: true })
-
-
 const schema = new mongoose.Schema({
     profile: {
         type: schemas.profile,
@@ -36,7 +25,7 @@ const schema = new mongoose.Schema({
         select: false
     },
     phone: {
-        type: phoneSchema,
+        type: schemas.phone,
         select: false
     },
     role: {
@@ -64,7 +53,11 @@ const schema = new mongoose.Schema({
                 ref: 'shops',
             },
         }
-    ]
+    ],
+    address: {
+        type: schemas.address,
+        select: false
+    },
 },
     { timestamps: true });
 

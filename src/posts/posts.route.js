@@ -3,7 +3,7 @@ const router = express.Router();
 const postsCtrl = require(`./posts.controller`)
 const { check, query, param } = require('express-validator');
 const validatorCheck = require(`../../utils/error`).validatorCheck;
-const { authenticate } = require(`../../middlewares/auth`)
+const { authenticate } = require(`../../mw/auth`)
 
 
 

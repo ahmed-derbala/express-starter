@@ -3,7 +3,7 @@ const router = express.Router();
 const usersCtrl = require(`./users.controller`)
 const { check, query, param } = require('express-validator');
 const validatorCheck = require(`../../utils/error`).validatorCheck;
-const { authenticate } = require(`../../middlewares/auth`)
+const { authenticate } = require(`../../mw/auth`)
 
 
 
@@ -14,8 +14,12 @@ const { authenticate } = require(`../../middlewares/auth`)
 
 
 router.get('/',
- // authenticate(),
+  // authenticate(),
   usersCtrl.getUsers)
+
+router.get('/profile/:username',
+  // authenticate(),
+  usersCtrl.getProfile)
 
 /*
 router.post('/signin',

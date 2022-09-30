@@ -3,7 +3,8 @@
     "ignore": [
         "uploads/*",
         "node_modules/*",
-        ".github/*"
+        ".github/*",
+        "logs/*"
     ],
     "delay": 1000
 }

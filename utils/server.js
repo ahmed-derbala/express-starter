@@ -1,5 +1,5 @@
-const appConf = require(`./utils/requireConf`)('app')
-const { log } = require(`./utils/log`)
+const appConf = require(`./requireConf`)('app')
+const { log } = require(`./log`)
 
 /**
  * Module dependencies.

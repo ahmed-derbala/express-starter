@@ -13,6 +13,6 @@ process.on('warning', err => log({ message: err.stack, level: 'warn' }));//print
 process.on('uncaughtException', err => log({ message: err.stack, level: 'warn' }));
 process.on('unhandledRejection', err => log({ message: err.stack, level: 'warn' }));
 
-const server = require('./server')
+const server = require('./utils/server')
 const { socketio } = require('./utils/socketio')
 socketio({ server })
