@@ -7,14 +7,15 @@
   "private": true,
   "scripts": {
     "packages:install": "npm i --force",
-    "packages:clean": "rm -f package-lock.json && rm -r -f node_modules && rm -r -f logs && npm run packages:install",
+    "packages:clean": "rm -f package-lock.json && rm -r -f node_modules",
+    "packages:cleaninstall": "rm -f package-lock.json && rm -r -f node_modules && rm -r -f logs && npm run packages:install",
     "start": "npm run packages:install && NODE_ENV=production pm2 start main.js -i max --node-args='--max-old-space-size=32000' -f && pm2 monit",
     "restart": "pm2 delete all && npm run start",
     "start:code": "code . && npm run start:dev",
     "start:dev": "nodemon --max-old-space-size=32000 main.js",
     "start:fresh": "git pull origin main && npm run packages:install && npm run start:code",
     "start:pm2": "pm2 start main.js --node-args='--max-old-space-size=32000' -f && pm2 monit",
-    "update:all": "ncu -u && npm run packages:install && npm run start:code",
+    "update:all": "npm run packages:clean && ncu -u && npm run packages:install && npm run start:code",
     "git": "git add . && git commit -m",
     "postgit": "git push && npm run start:code",
     "logs": "pm2 monit",
@@ -41,7 +42,7 @@
     "express-winston": "^4.2.0",
     "helmet": "^6.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.6.2",
+    "mongoose": "^6.6.3",
     "mongoose-unique-validator": "^3.1.0",
     "morgan": "^1.10.0",
     "pm2": "^5.2.0",
@@ -52,6 +53,6 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.20",
-    "npm-check-updates": "^16.3.2"
+    "npm-check-updates": "^16.3.4"
   }
 }

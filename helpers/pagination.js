@@ -1,8 +1,8 @@
 const minLimit = 1,
-  defaultLimit = 10,
+  defaultLimit = 100,
   maxLimit = 300;
 
-module.exports.paginate = async ({
+exports.paginate = async ({
   model,
   page,
   limit,
@@ -22,7 +22,7 @@ module.exports.paginate = async ({
   let options = {
     allowDiskUse: true,
     lean: true,
-    collation: { locale: 'en' },
+    collation: { locale: 'fr' },
     sort,
     skip,
     limit,
@@ -47,7 +47,7 @@ module.exports.paginate = async ({
   };
 };
 
-module.exports.aggregatePaginate = async ({
+exports.aggregatePaginate = async ({
   model,
   page,
   limit,
@@ -57,36 +57,52 @@ module.exports.aggregatePaginate = async ({
   limit = processLimit(limit);
   const skip = processSkip({ page, limit });
 
-  /*const matchIndex=pipeline.match(function (o) {
-    return o.hasOwnProperty('$match');
-  })*/
   const matchIndex = pipeline.findIndex((p) => p['$match']);
-  const sortIndex = pipeline.findIndex((p) => p['$sort']);
-  let limitIndex = 0;
-  if (sortIndex > -1) limitIndex = sortIndex + 1;
-  else if (matchIndex > -1) limitIndex = matchIndex + 1;
-
-  console.log(matchIndex, 'matchIndex');
+  let sortIndex = pipeline.findIndex((p) => p['$sort']);
   console.log(sortIndex, 'sortIndex');
-  console.log(limitIndex, 'limitIndex');
+  console.log(pipeline, 'pipeline');
 
-  pipeline.splice(limitIndex, 0, { $limit: limit });
-  pipeline.splice(limitIndex + 1, 0, { $skip: skip });
+  //process sort, $sort must be not empty
+  if (
+    sortIndex > -1 &&
+    Object.keys(pipeline[sortIndex]['$sort']).length === 0
+  ) {
+    pipeline.splice(sortIndex, 1);
+    sortIndex = -1;
+  }
+  
+  let skipIndex = pipeline.findIndex((p) => p['$skip']);
+  let limitIndex = pipeline.findIndex((p) => p['$limit']);
+
+  if (skipIndex < 0) {
+    if (sortIndex > -1) skipIndex = sortIndex + 1;
+    else if (matchIndex > -1) skipIndex = matchIndex + 1;
+
+    pipeline.splice(skipIndex + 1, 0, { $skip: skip });
+    limitIndex = skipIndex + 1;
+    pipeline.splice(limitIndex, 0, { $limit: limit });
+  }
+  //console.log(matchIndex, 'matchIndex');
+  //console.log(sortIndex, 'sortIndex');
+  //console.log(limitIndex, 'limitIndex');
+  //console.log(skipIndex, 'skipIndex');
 
   let options = {
     allowDiskUse: true,
     collation: { locale: 'fr' },
   };
+
+  //console.log(pipeline, 'pipeline');
   let data = await model.aggregate(pipeline, options);
-  console.log(pipeline, 'pipeline');
   // console.log(data, 'data');
 
   let result = {};
   if (sortIndex > -1 && matchIndex > sortIndex)
     result.message = `its advised to have $match stage before $sort`;
   result.pagination_metadata = {};
+  //console.log(pipeline[matchIndex]['$match'], '$match');
   result.pagination_metadata.totalDocs = await model.countDocuments(
-    pipeline['$match'] || {},
+    pipeline[matchIndex]['$match'] || {},
   );
   //console.log(result.pagination_metadata.totalDocs, 'result.pagination_metadata.totalDocs');
 
