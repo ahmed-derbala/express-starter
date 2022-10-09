@@ -19,7 +19,7 @@
     "update:all": "npm run packages:clean && git pull origin main && ncu -u && npm run packages:install && npm run start:dev",
     "update:packages": "npm run packages:clean && ncu -u && npm run packages:install && npm run start:dev",
     "git": "git add . && git commit -m",
-    "postgit": "git push && npm run start:fresh",
+    "postgit": "git push && npm run start:dev",
     "logs": "pm2 monit",
     "stop": "pm2 stop all",
     "delete": "pm2 delete all"
