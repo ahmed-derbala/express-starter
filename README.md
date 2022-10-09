@@ -9,15 +9,17 @@ a clean project to start an express app faster. This made using node v16
 - socketio
 - logs: winston (file, console, mongo) with memory infos 
 - mongo as main db
-- json requests logs with morgan and winston
+- custom json requests logs with morgan and winston
 - cluster: configurable in configs/app.config
 - load config file based on NODE_ENV: example: const logConf = require(`../utils/requireConf`)('log'), so if NODE_ENV=production and configs/log.config.production exists it will be used instead of configs/log.config
-- vscode: most npm scripts ends with && code .
+- api limiter
+- use_strict: true
 
 
-# first run: install latest versions of modules and start the app with vscode
+# first run: install modules and start the app with vscode
 ```
-npm run update:all
+npm run packages:install
+npm run start:code
 ```
 
 # production

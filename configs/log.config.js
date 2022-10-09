@@ -1,7 +1,7 @@
-const appConf = require(`../utils/requireConf`)('app')
+const appConf = require(`../src/utils/requireConf`)('app')
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, label, prettyPrint, colorize } = format;
-const dbConf = require(`../utils/requireConf`)('db')
+const dbConf = require(`../src/utils/requireConf`)('db')
 require('winston-mongodb');
 
 const transportsOptions = {

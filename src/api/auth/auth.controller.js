@@ -4,7 +4,7 @@ const Sessions = require(`../sessions/sessions.schema`)
 const bcrypt = require('bcrypt');
 const { errorHandler } = require('../../utils/error');
 const jwt = require('jsonwebtoken');
-const authConfig = require(`../../configs/auth.config`)
+const authConfig = require(`../../../configs/auth.config`)
 const authSrvc = require(`./auth.service`)
 
 module.exports.signup = async (req, res) => {

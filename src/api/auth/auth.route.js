@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const authCtrl = require(`${process.cwd()}/src/auth/auth.controller`)
+const authCtrl = require(`./auth.controller`)
 const { check, query, param } = require('express-validator');
-const validatorCheck = require(`${process.cwd()}/utils/error`).validatorCheck;
-const { authenticate } = require(`${process.cwd()}/mw/auth`)
+const validatorCheck = require(`../../utils/error`).validatorCheck;
+const { authenticate } = require(`../../mw/auth`)
 
 
 

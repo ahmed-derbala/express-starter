@@ -1,6 +1,6 @@
-const socketioConf = require('../configs/socketio.config');
+const socketioConf = require('../../configs/socketio.config');
 const { log } = require('./log');
-const logConf =require('../configs/log.config')
+const logConf =require('../../configs/log.config')
 
 exports.socketio = ({ server }) => {
     let socket = require('socket.io')(server, socketioConf.options);

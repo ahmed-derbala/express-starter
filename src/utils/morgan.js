@@ -1,5 +1,5 @@
 const morgan = require('morgan');
-const appConf = require(`../configs/app.config`);
+const appConf = require(`../../configs/app.config`);
 const { log } = require(`./log`)
 const _ = require('lodash');
 const { errorHandler } = require('./error');

@@ -1,5 +1,5 @@
 const fs = require('fs');
-const defaultAppConf = require('../configs/app.config')
+const defaultAppConf = require('../../configs/app.config')
 const NODE_ENV = process.env.NODE_ENV || defaultAppConf.NODE_ENV
 
 

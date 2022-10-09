@@ -1,6 +1,4 @@
-const minLimit = 1,
-  defaultLimit = 100,
-  maxLimit = 300;
+const { minLimit, defaultLimit, maxLimit } = require(`../utils/requireConf`)('pagination')
 
 exports.paginate = async ({
   model,
@@ -59,8 +57,8 @@ exports.aggregatePaginate = async ({
 
   const matchIndex = pipeline.findIndex((p) => p['$match']);
   let sortIndex = pipeline.findIndex((p) => p['$sort']);
-  console.log(sortIndex, 'sortIndex');
-  console.log(pipeline, 'pipeline');
+  //console.log(sortIndex, 'sortIndex');
+  //console.log(pipeline, 'pipeline');
 
   //process sort, $sort must be not empty
   if (
@@ -70,7 +68,7 @@ exports.aggregatePaginate = async ({
     pipeline.splice(sortIndex, 1);
     sortIndex = -1;
   }
-  
+
   let skipIndex = pipeline.findIndex((p) => p['$skip']);
   let limitIndex = pipeline.findIndex((p) => p['$limit']);
 
@@ -82,6 +80,7 @@ exports.aggregatePaginate = async ({
     limitIndex = skipIndex + 1;
     pipeline.splice(limitIndex, 0, { $limit: limit });
   }
+
   //console.log(matchIndex, 'matchIndex');
   //console.log(sortIndex, 'sortIndex');
   //console.log(limitIndex, 'limitIndex');

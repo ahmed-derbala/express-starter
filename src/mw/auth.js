@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
-const Users = require(`../src/users/users.schema`)
-const Sessions = require(`../src/sessions/sessions.schema`)
+const Users = require(`../api/users/users.schema`)
+const Sessions = require(`../api/sessions/sessions.schema`)
 const { errorHandler } = require('../utils/error');
-const authConf = require(`../configs/auth.config`)
+const authConf = require(`../../configs/auth.config`)
 
 
 exports.authenticate = (params) => {
