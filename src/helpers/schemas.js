@@ -9,6 +9,11 @@ exports.phone = new mongoose.Schema({
     shortNumber: { type: String, required: false }
 }, { _id: false, timestamps: true })
 
+let photo = exports.photo = new mongoose.Schema({
+    url: { type: String, required: false },
+}, { _id: false, timestamps: true })
+
+
 
 exports.profile = new mongoose.Schema({
     firstname: {
@@ -31,7 +36,8 @@ exports.profile = new mongoose.Schema({
         type: Date,
         required: false,
     },
-}, { _id: false,timestamps: true })
+    photo
+}, { _id: false, timestamps: true })
 
 
 exports.price = new mongoose.Schema({

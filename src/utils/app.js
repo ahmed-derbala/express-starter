@@ -15,7 +15,7 @@ const { tidHandler } = require('../helpers/tid')
 
 let app = express();
 app.use(cors(appConf.corsOptions))
-app.use('/api', rateLimit(appConf.apiLimiter))
+app.use('/', rateLimit(appConf.apiLimiter))
 app.use(compression())
 app.use(helmet({
   crossOriginResourcePolicy: false,
@@ -29,7 +29,7 @@ app.disable('x-powered-by');
 app.disable('etag');
 app.use(morganLogger())
 
-
+//save logs to db
 app.use(expressWinston.logger({
   transports: [
     new winston.transports.MongoDB(logConf.transportsOptions.mongo)
