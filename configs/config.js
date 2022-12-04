@@ -1,13 +1,14 @@
 /**
  * the default config.js 
  */
-
 const packagejson = require(`../package.json`);
 const os = require("os")
 const ip = require("ip");
 
 
-//app
+/**
+ * app
+ */
 let app = {
     name: packagejson.name,
     version: packagejson.version,
@@ -41,7 +42,9 @@ let app = {
 }
 
 
-//db
+/**
+ * db
+ */
 const user = null
 const password = null
 const host = process.env.DATABASE_HOST || 'localhost'
@@ -69,10 +72,11 @@ let db = {
 }
 
 
-//log
+/**
+ * log
+ */
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, label, prettyPrint, colorize } = format;
-//const dbConf = require(`../src/utils/requireConf`)('db')
 require('winston-mongodb');
 const transportsOptions = {
     file: {
