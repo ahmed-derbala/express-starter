@@ -1,12 +1,11 @@
-const socketioConf = require('../../configs/socketio.config');
 const { log } = require('./log');
-const logConf =require('../../configs/log.config')
+const  conf  = require(`./loadConf`)
 
 exports.socketio = ({ server }) => {
-    let socket = require('socket.io')(server, socketioConf.options);
+    let socket = require('socket.io')(server, conf().socketio.options);
 
     socket.on('connection', (socketData) => {
-        log({level:logConf.levelNames.socket,message:`socketId=${socketData.id} | ip=${socketData.handshake.address} | userAgent=${socketData.handshake.headers['user-agent']}`})
+        log({level:conf().log.levelNames.socket,message:`socketId=${socketData.id} | ip=${socketData.handshake.address} | userAgent=${socketData.handshake.headers['user-agent']}`})
     });
 
     socket.on('error', (error) => {

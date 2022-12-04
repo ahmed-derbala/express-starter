@@ -1,4 +1,4 @@
-const appConf = require(`./requireConf`)('app')
+const  conf  = require(`./loadConf`)
 const { log } = require(`./log`)
 
 /**
@@ -10,7 +10,7 @@ const { log } = require(`./log`)
  /**
   * Get port from environment and store in Express.
   */
- app.set('port', appConf.backend.port);
+ app.set('port', conf().app.backend.port);
  
  /**
   * Create HTTP server.
@@ -20,12 +20,12 @@ const { log } = require(`./log`)
  /**
   * Listen on provided port, on all network interfaces.
   */
- if (appConf.cluster > 0) {
+ if (conf().app.cluster > 0) {
    let cluster = require('cluster');
    if (cluster.isMaster) {
-     log({ message: `cluster is enabled. ${appConf.cluster} cpus are in use`, level: 'success' })
+     log({ message: `cluster is enabled. ${conf().app.cluster} cpus are in use`, level: 'success' })
      // Create a worker for each CPU
-     for (let c = 1; c <= appConf.cluster; c++) {
+     for (let c = 1; c <= conf().app.cluster; c++) {
        cluster.fork();
      }
  
@@ -37,13 +37,13 @@ const { log } = require(`./log`)
  
    } else {
      //launching the server
-     server.listen(appConf.backend.port, log({ message: `${appConf.name} ${appConf.version} ${appConf.backend.url} NODE_ENV=${appConf.NODE_ENV} fork ${cluster.worker.id} pid ${cluster.worker.process.pid}`, level: 'startup' }))
+     server.listen(conf().app.backend.port, log({ message: `${conf().app.name} ${conf().app.version} ${conf().app.backend.url} NODE_ENV=${conf().app.NODE_ENV} fork ${cluster.worker.id} pid ${cluster.worker.process.pid}`, level: 'startup' }))
      server.on('error', onError);
      server.on('listening', onListening);
    }
  } else {
    //launching the server without cluster
-   server.listen(appConf.backend.port, log({ message: `${appConf.name} ${appConf.version} ${appConf.backend.url} NODE_ENV=${appConf.NODE_ENV}`, level: 'startup' }))
+   server.listen(conf().app.backend.port, log({ message: `${conf().app.name} ${conf().app.version} ${conf().app.backend.url} NODE_ENV=${conf().app.NODE_ENV}`, level: 'startup' }))
    server.on('error', onError);
    server.on('listening', onListening);
  }
@@ -59,9 +59,9 @@ const { log } = require(`./log`)
      throw error;
    }
  
-   const bind = typeof appConf.backend.port === 'string'
-     ? 'Pipe ' + appConf.backend.port
-     : 'Port ' + appConf.backend.port;
+   const bind = typeof conf().app.backend.port === 'string'
+     ? 'Pipe ' + conf().app.backend.port
+     : 'Port ' + conf().app.backend.port;
  
    // handle specific listen errors with friendly messages
    switch (error.code) {

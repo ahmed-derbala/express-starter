@@ -1,4 +1,5 @@
-const { minLimit, defaultLimit, maxLimit } = require(`../utils/requireConf`)('pagination')
+const  conf  = require(`../utils/loadConf`)
+const { minLimit, defaultLimit, maxLimit } = conf().pagination
 
 exports.paginate = async ({
   model,

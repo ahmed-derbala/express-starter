@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const Users = require(`../api/users/users.schema`)
 const Sessions = require(`../api/sessions/sessions.schema`)
 const { errorHandler } = require('../utils/error');
-const authConf = require(`../../configs/auth.config`)
+const  conf  = require(`../utils/loadConf`)
 
 
 exports.authenticate = (params) => {
@@ -24,7 +24,7 @@ exports.authenticate = (params) => {
         req.headers.token = req.headers.token.replace('Bearer ', '');
 
         //verify token
-        return jwt.verify(req.headers.token, authConf.jwt.privateKey, (err, decoded) => {
+        return jwt.verify(req.headers.token, conf().auth.jwt.privateKey, (err, decoded) => {
             if (err) {
                 //if token is not required move on
                 if (params.isTokenRequired == false) {

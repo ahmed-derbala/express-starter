@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
-const dbConf  = require(`../utils/requireConf`)('db')
+const  conf  = require(`./loadConf`)
 const { log } = require(`./log`)
 const { errorHandler } = require('./error');
 
 const connect = async () => {
   try {
-    await mongoose.connect(dbConf.mongo.uri, dbConf.mongo.options,
-      () => { log({ message: `db_conn_success | ${dbConf.mongo.name} | ${dbConf.mongo.host}:${dbConf.mongo.port}`, level: 'success' }) }
+    await mongoose.connect(conf().db.mongo.uri, conf().db.mongo.options,
+      () => { log({ message: `db_conn_success | ${conf().db.mongo.name} | ${conf().db.mongo.host}:${conf().db.mongo.port}`, level: 'success' }) }
     );
   } catch (err) {
     errorHandler({ err })
   }
 
   mongoose.connection
-    .on('error', () => { log({ message: `db_conn_error | ${dbConf.mongo.name} | ${dbConf.mongo.host}:${dbConf.mongo.port}`, level: 'error' }) })
+    .on('error', () => { log({ message: `db_conn_error | ${conf().db.mongo.name} | ${conf().db.mongo.host}:${conf().db.mongo.port}`, level: 'error' }) })
     .on('close', console.info.bind(console, 'Database connection: close'))
     .on('disconnected', console.info.bind(console, 'Database connection: disconnecting'))
     .on('disconnected', console.info.bind(console, 'Database connection: disconnected'))

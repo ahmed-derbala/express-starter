@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 console.clear()
-const appConf = require(`./utils/requireConf`)('app')
+const conf = require(`./utils/loadConf`)
 
-if (appConf.use_strict) require('use-strict')
+if (conf().app.use_strict) require('use-strict')
 
 const db = require("./utils/db");
 db.connect()

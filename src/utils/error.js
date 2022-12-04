@@ -10,7 +10,8 @@ const { log } = require(`./log`)
  * @param {Next} error.next next object
  */
 exports.errorHandler = ({ err, req, res, next }) => {
-    console.log('errorHandler...')
+    //console.log(err);
+    //console.log('errorHandler...')
     // console.error({ err,  })
 
     if (typeof err == 'string') err = { message: err }

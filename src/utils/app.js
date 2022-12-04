@@ -3,19 +3,18 @@ const cookieParser = require('cookie-parser');
 const useragent = require('express-useragent');
 const expressWinston = require('express-winston');
 const winston = require('winston'); //logging module
-const loaders = require('../helpers/loaders')
+const loaders = require('./loaders')
 const morganLogger = require(`./morgan`)
-const logConf = require(`./requireConf`)('log')
 const rateLimit = require('express-rate-limit')
-const appConf = require(`../../configs/app.config`)
+const conf = require(`./loadConf`)
 const compression = require('compression')
 const cors = require('cors')
 const helmet = require('helmet')
 const { tidHandler } = require('../helpers/tid')
 
 let app = express();
-app.use(cors(appConf.corsOptions))
-app.use('/', rateLimit(appConf.apiLimiter))
+app.use(cors(conf().app.corsOptions))
+app.use('/', rateLimit(conf().app.apiLimiter))
 app.use(compression())
 app.use(helmet({
   crossOriginResourcePolicy: false,
@@ -32,7 +31,7 @@ app.use(morganLogger())
 //save logs to db
 app.use(expressWinston.logger({
   transports: [
-    new winston.transports.MongoDB(logConf.transportsOptions.mongo)
+    new winston.transports.MongoDB(conf().log.transportsOptions.mongo)
   ],
   expressFormat: true
 }));

@@ -4,11 +4,11 @@ const Sessions = require(`../sessions/sessions.schema`)
 const bcrypt = require('bcrypt');
 const { errorHandler } = require('../../utils/error');
 const jwt = require('jsonwebtoken');
-const authConf = require(`../../../configs/auth.config`)
+const  conf  = require(`../../utils/loadConf`)
 
 module.exports.signup = async ({user}) => {
     //console.log(params,"servc params")
-    const salt = bcrypt.genSaltSync(authConf.saltRounds)
+    const salt = bcrypt.genSaltSync(conf().auth.saltRounds)
     user.password = bcrypt.hashSync(user.password, salt)
     if (!user.profile.displayname) user.profile.displayname = `${user.profile.firstname} ${user.profile.lastname}`
 
@@ -46,7 +46,7 @@ module.exports.signin = async ({user,req}) => {
             if (passwordCompare == false) {
                 return { message: 'password incorrect', data: null, status: 409 }
             }
-            const token = jwt.sign({ fetchedUser, ip: req.ip, userAgent: req.headers['user-agent'] }, authConf.jwt.privateKey, { expiresIn: '30d' })
+            const token = jwt.sign({ fetchedUser, ip: req.ip, userAgent: req.headers['user-agent'] }, conf().auth.jwt.privateKey, { expiresIn: '30d' })
 
             return Sessions.create({ token, user:fetchedUser, headers: req.headers,ip:req.ip })
                 .then(session => {

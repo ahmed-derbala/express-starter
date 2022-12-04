@@ -3,8 +3,7 @@
  * logging system written in seperate file to make it easy to integrates in other projects and to be extensible as possible
  */
 const winston = require('winston'); //logging module
-const logConf = require(`./requireConf`)('log')
-
+const  conf  = require(`./loadConf`)
 /**
  * log function
  * @param {Object} log
@@ -17,11 +16,11 @@ module.exports.log = ({ req, level, message }) => {
   //console.log({req,level,message})
   if (!level) level = 'debug'
 
-  winston.addColors(logConf.colors)
+  winston.addColors(conf().log.colors)
 
   let memory = null
-  if (logConf.memory) memory = process.memoryUsage()
-  let logger = winston.createLogger(logConf.createLoggerOptions)
+  if (conf().log.memory) memory = process.memoryUsage()
+  let logger = winston.createLogger(conf().log.createLoggerOptions)
   logger[level]({ req, level, message, memory })
 
   logger.close()

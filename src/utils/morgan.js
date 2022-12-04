@@ -1,5 +1,5 @@
 const morgan = require('morgan');
-const appConf = require(`../../configs/app.config`);
+const conf = require(`./loadConf`)
 const { log } = require(`./log`)
 const _ = require('lodash');
 const { errorHandler } = require('./error');
@@ -36,9 +36,9 @@ morgan.token('body', (req) => {
     if (!req.body) req.body = {}
 
     for (let [key, value] of Object.entries(req.body)) {
-        if (appConf.morgan.hiddenBodyFields.includes(key)) req.body[key] = '***'
+        if (conf().app.morgan.hiddenBodyFields.includes(key)) req.body[key] = '***'
         for (let [k, v] of Object.entries(req.body[key])) {
-            if (appConf.morgan.hiddenBodyFields.includes(`${key}.${k}`)) req.body[key][k] = '***'
+            if (conf().app.morgan.hiddenBodyFields.includes(`${key}.${k}`)) req.body[key][k] = '***'
         }
     }
     return JSON.stringify(req.body);
@@ -75,6 +75,6 @@ const stream = {
 };
 
 let morganLogger = () => {
-    return morgan(appConf.morgan.tokenString, { stream })
+    return morgan(conf().app.morgan.tokenString, { stream })
 }
 module.exports = morganLogger
