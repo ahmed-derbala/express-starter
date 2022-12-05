@@ -3,7 +3,7 @@
  * logging system written in seperate file to make it easy to integrates in other projects and to be extensible as possible
  */
 const winston = require('winston'); //logging module
-const  conf  = require(`./loadConf`)
+const conf = require(`./loadConf`)
 /**
  * log function
  * @param {Object} log
@@ -12,7 +12,8 @@ const  conf  = require(`./loadConf`)
  * @param {string} log.message
  */
 module.exports.log = ({ req, level, message }) => {
-  //console.log('log')
+  if (!message) message = 'no_message'
+  //console.log(req, 'req')
   //console.log({req,level,message})
   if (!level) level = 'debug'
 

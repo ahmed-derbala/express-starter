@@ -91,10 +91,22 @@ exports.aggregatePaginate = async ({
     allowDiskUse: true,
     collation: { locale: 'fr' },
   };
+  //sanitize pipeline object
+  if (matchIndex > -1) {
+    if (pipeline[matchIndex]['$match']['_id']) {
+      if (pipeline[matchIndex]['$match']['_id']['$in']) {
+        //make sure the _ids are ObjectId and not strings. it doesnt work with strings
+        pipeline[matchIndex]['$match']['_id']['$in'] = pipeline[matchIndex][
+          '$match'
+        ]['_id']['$in'].map((el) => new mongoose.Types.ObjectId(el));
+      }
+    }
+  }
 
-  //console.log(pipeline, 'pipeline');
+  //console.log(JSON.stringify(pipeline), 'pipeline in pagination helper');
+  // console.log(options,'options in helper');
   let data = await model.aggregate(pipeline, options);
-  // console.log(data, 'data');
+  //console.log(data, 'data in helper');
 
   let result = {};
   if (sortIndex > -1 && matchIndex > sortIndex)

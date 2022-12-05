@@ -81,7 +81,7 @@ require('winston-mongodb');
 const transportsOptions = {
     file: {
         level: 'verbose',
-        filename: `${process.cwd()}/logs/${app.name}.log`,
+        filename: `${process.cwd()}/logs/${app.name}.json`,
         handleExceptions: true,
         maxsize: 1000000, //1 million = 1 mb
         maxFiles: 2,
